@@ -1,48 +1,14 @@
-var request = require("request");
-var cheerio = require("cheerio");
-
+const request = require("request");
+const cheerio = require("cheerio");
 const fs = require('fs');
-var end = 0;
-var limit = 100;
+
+
 var atags = []
+var end = 0;
 var index = 0
 
-function load_full_urls(url, callback1) {
-    request(url, (err, res, html) => {
-        if (!err && res.statusCode == 200) {
-            const $ = cheerio.load(html)
-            $('a').each((i, el) => {
-                if (($(el).attr('href')).includes("www", 0) || ($(el).attr('href')).includes("http", 0)) {
-                    atags.push(($(el).attr('href')));
-                    end++;
-                }
-            });
-            callback1();
-        }
-    })
-}
-
-
-
-load_full_urls("https://www.npmjs.com/package/cheerio", Recur);
-
-
-
-
-function Recur() {
-
-    while (atags.length <= limit && index < end) {
-        if (atags[index]) {
-            load_all_urls(atags[index++])
-        }
-        console.log(atags.length)
-    }
-
-}
-
-
-function load_all_urls(url) {
-    console.log(url)
+function load_all_urls(url,limit) {
+   
     request(url, (err, res, html) => {
         if (err) {
             console.log(err)
@@ -52,13 +18,14 @@ function load_all_urls(url) {
             $('a').each((i, el) => {
                 if (atags.length < limit) {
                     atags.push(($(el).attr('href')));
-                    console.log($(el).attr('href'), atags.length)
+                  
                     if (atags.length == limit) {
                         fs.writeFileSync('./result.txt', atags.join("\n"), (err, res) => {
                             if (err) {
                                 console.log(err);
                             }
                         })
+                        console.log("Request completed Succesfully")
                         process.exit()
                     }
                 }
@@ -66,3 +33,38 @@ function load_all_urls(url) {
         }
     })
 };
+
+function Recur(limit) {
+
+    while (atags.length <= limit && index < end) {
+        if (atags[index]) {
+            load_all_urls(atags[index++],limit)
+        }
+        
+    }
+
+}
+
+function load_full_urls(url, callback,limit) {
+    request(url, (err, res, html) => {
+        if (!err && res.statusCode == 200) {
+            const $ = cheerio.load(html)
+            $('a').each((i, el) => {
+                if (($(el).attr('href')).includes("http", 0)) {
+                    atags.push(($(el).attr('href')));
+                    end++;
+                }
+            });
+            callback(limit);
+        }
+    })
+}
+var limit = 100;
+load_full_urls("https://www.npmjs.com/package/cheerio", Recur,limit);
+
+
+
+
+
+
+
