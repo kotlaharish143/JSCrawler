@@ -1,7 +1,7 @@
 https://github.blog/2020-04-15-npm-has-joined-github/
 https://docs.npmjs.com
 https://npm.community
-https://www.youtube.com/watch?v=n3B21nqsqxA&list=PLQso55XhxkgBKhtFahRx20wyWE488kKJJ
+https://github.com/npm/rfcs
 http://travis-ci.org/cheeriojs/cheerio
 https://coveralls.io/r/cheeriojs/cheerio
 https://gitter.im/cheeriojs/cheerio?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
