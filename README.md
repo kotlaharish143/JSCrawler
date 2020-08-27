@@ -14,7 +14,7 @@ After That run
 	
 This will install all the packages required for this project
 ```javascript
- `code` $npm start 
+ $npm start 
 
 ```
 
