@@ -24,3 +24,8 @@ will run the source file
  fimally the results are written into result.txt file
 
  You can change the limit and the example url at the function call which is at the end of index.js 
+
+```javascript
+load_valid_urls(url,call_back,limit)
+
+```
