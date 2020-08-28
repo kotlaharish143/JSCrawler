@@ -26,6 +26,6 @@ will run the source file
  You can change the limit and the example url at the function call which is at the end of index.js 
 
 ```javascript
-load_valid_urls(url,call_back,limit)
+load_valid_urls(url,callback,limit)
 
 ```
